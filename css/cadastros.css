@@ -6,7 +6,10 @@
     border-radius: 8px;
     padding: 12px 24px;
     cursor: pointer;
-    transition: 0.3s;
+
+    /* só as propriedades visuais; "transition: 0.3s" (all) também
+       animaria o visibility herdado do modal e atrasaria o foco */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
 /* Variação secundária (contorno) */
