@@ -80,28 +80,32 @@ export const cadastro = {
                     de voluntários.
                 </p>
 
-                <form id="formCadastro" novalidate>
+                <p class="instrucao-formulario" id="instrucaoFormulario">
+                    Todos os campos são obrigatórios.
+                </p>
+
+                <form id="formCadastro" novalidate aria-describedby="instrucaoFormulario">
 
                     <fieldset>
                         <legend>Dados pessoais</legend>
 
                         <label for="nome">Nome completo:</label>
-                        <input type="text" id="nome" name="nome" required minlength="3"
+                        <input type="text" id="nome" name="nome" autocomplete="name" required minlength="3"
                             placeholder="Digite seu nome completo">
 
                         <label for="email">E-mail:</label>
-                        <input type="email" id="email" name="email" required placeholder="exemplo@email.com">
+                        <input type="email" id="email" name="email" autocomplete="email" required placeholder="exemplo@email.com">
 
                         <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" required pattern="[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}"
+                        <input type="text" id="cpf" name="cpf" inputmode="numeric" required pattern="[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}"
                             placeholder="000.000.000-00">
 
                         <label for="telefone">Telefone:</label>
-                        <input type="tel" id="telefone" name="telefone" required pattern="\\([0-9]{2}\\) [0-9]{4,5}-[0-9]{4}"
+                        <input type="tel" id="telefone" name="telefone" autocomplete="tel-national" required pattern="\\([0-9]{2}\\) [0-9]{4,5}-[0-9]{4}"
                             placeholder="(34) 99999-9999">
 
                         <label for="nascimento">Data de nascimento:</label>
-                        <input type="date" id="nascimento" name="nascimento" required>
+                        <input type="date" id="nascimento" name="nascimento" autocomplete="bday" required>
 
                     </fieldset>
 
@@ -109,13 +113,13 @@ export const cadastro = {
                         <legend>Endereço</legend>
 
                         <label for="endereco">Endereço:</label>
-                        <input type="text" id="endereco" name="endereco" required placeholder="Rua, número e complemento">
+                        <input type="text" id="endereco" name="endereco" autocomplete="street-address" required placeholder="Rua, número e complemento">
 
                         <label for="cidade">Cidade:</label>
-                        <input type="text" id="cidade" name="cidade" required placeholder="Digite sua cidade">
+                        <input type="text" id="cidade" name="cidade" autocomplete="address-level2" required placeholder="Digite sua cidade">
 
                         <label for="estado">Estado:</label>
-                        <select id="estado" name="estado" required>
+                        <select id="estado" name="estado" autocomplete="address-level1" required>
                             <option value="">Selecione</option>
                             <option value="MG">Minas Gerais</option>
                             <option value="SP">São Paulo</option>
@@ -128,7 +132,7 @@ export const cadastro = {
                         </select>
 
                         <label for="cep">CEP:</label>
-                        <input type="text" id="cep" name="cep" required pattern="[0-9]{5}-[0-9]{3}" placeholder="00000-000">
+                        <input type="text" id="cep" name="cep" autocomplete="postal-code" inputmode="numeric" required pattern="[0-9]{5}-[0-9]{3}" placeholder="00000-000">
 
                     </fieldset>
 

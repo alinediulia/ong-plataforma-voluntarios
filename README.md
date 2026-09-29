@@ -89,8 +89,8 @@ Resultado atual:
 
 | Tipo | Código-fonte | Produção | Redução |
 |---|---|---|---|
-| JavaScript | 45,7 KB | 24,3 KB | −47% |
-| CSS | 20,1 KB | 12,5 KB | −38% |
+| JavaScript | 47,7 KB | 25,3 KB | −47% |
+| CSS | 21,9 KB | 13,3 KB | −39% |
 
 A pasta `dist/` é gerada automaticamente e, por isso, não é versionada (está no `.gitignore`).
 
@@ -165,15 +165,27 @@ Por ser um dado sensível, o **CPF não é armazenado**.
 
 ## Acessibilidade
 
-Recursos implementados:
+O projeto segue as diretrizes da **WCAG 2.1, nível AA**. A auditoria automática com [axe-core](https://github.com/dequelabs/axe-core) não aponta violações em nenhuma tela, nem com o modal aberto.
 
-- HTML semântico (`header`, `nav`, `main`, `section`, `article`, `fieldset`, `legend`)
-- Atributos ARIA: `aria-current` no menu, `aria-expanded` no botão do menu, `aria-live` no toast, `aria-modal` no modal, e `aria-invalid` e `aria-describedby` nos campos com erro
-- Contorno de foco visível para navegação por teclado
-- Tecla **ESC** fecha o modal, o toast e o menu
-- O foco é levado para dentro do modal ao abrir e devolvido ao fechar
-- Textos alternativos em todas as imagens
-- Animações desativadas quando o sistema pede movimento reduzido (`prefers-reduced-motion`)
+| Recurso | Critério WCAG |
+|---|---|
+| Landmarks `header`, `nav` (com `aria-label`), `main` e `footer`; `section`, `article`, `fieldset` e `legend` | 1.3.1 Informações e relações |
+| Link "Pular para o conteúdo", visível ao receber foco | 2.4.1 Ignorar blocos |
+| Título da aba atualizado a cada tela | 2.4.2 Página com título |
+| Foco levado ao `<h1>` da nova tela e anúncio da página por `aria-live` | 2.4.3 Ordem do foco / 4.1.3 Mensagens de status |
+| Contraste de texto de no mínimo 4,5:1 em todos os componentes | 1.4.3 Contraste (mínimo) |
+| Contorno de foco e bordas de campos com no mínimo 3:1 | 1.4.11 Contraste não textual |
+| Contorno de foco visível em todos os elementos interativos | 2.4.7 Foco visível |
+| `autocomplete` nos campos pessoais (`name`, `email`, `bday`, `postal-code`...) | 1.3.5 Identificar o propósito da entrada |
+| Rótulos em todos os campos e instrução "Todos os campos são obrigatórios" | 3.3.2 Rótulos ou instruções |
+| Erro descrito em texto abaixo do campo, com `aria-invalid` e `aria-describedby` | 3.3.1 Identificação do erro / 3.3.3 Sugestão de erro |
+| Modal com `role="dialog"`, `aria-modal`, `aria-labelledby`, `aria-describedby`, foco preso e fundo `inert` | 2.1.2 Sem bloqueio do teclado / 2.4.3 Ordem do foco |
+| Menu com `aria-expanded` e `aria-controls`; link ativo com `aria-current="page"` | 4.1.2 Nome, função, valor |
+| Toast com `role="status"` e `aria-live="polite"` | 4.1.3 Mensagens de status |
+| Tecla **ESC** fecha modal, toast e menu | 2.1.1 Teclado |
+| Status dos projetos indicado por texto, não só por cor | 1.4.1 Uso de cor |
+| Textos alternativos nas imagens; ícones decorativos com `aria-hidden` | 1.1.1 Conteúdo não textual |
+| Animações desativadas com `prefers-reduced-motion` | 2.3.3 Animação por interações |
 
 ## Fluxo de trabalho
 

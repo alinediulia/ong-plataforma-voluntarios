@@ -11,6 +11,9 @@
 
 <body>
 
+    <!-- Primeiro item do Tab: permite pular o menu (WCAG 2.4.1) -->
+    <a href="#app" class="pular-conteudo" id="pularConteudo">Pular para o conteúdo</a>
+
     <!-- =====================================================
          CABEÇALHO E MENU
          Fica fixo: só o conteúdo de <main> muda.
@@ -20,7 +23,7 @@
     <header class="cabecalho">
 
         <a href="#/" data-link class="logo">
-            <img width="120" src="../img/logo.jpg" alt="Logo da ONG">
+            <img width="120" height="120" src="../img/logo.jpg" alt="ONG — ir para a página inicial">
         </a>
 
         <button type="button" class="menu-botao" id="botaoMenu"
@@ -45,8 +48,12 @@
 
     <main id="app" tabindex="-1"></main>
 
+    <!-- Anuncia a troca de página para leitores de tela -->
+    <p class="sr-only" id="anuncioRota" aria-live="polite"></p>
+
 
     <footer class="rodape">
+        <p>Contato: <a href="mailto:contato@ong.org.br">contato@ong.org.br</a></p>
         <p>&copy; 2026 ONG - Todos os direitos reservados.</p>
     </footer>
 
@@ -74,7 +81,7 @@
          MODAL (global, usado por qualquer tela)
          ===================================================== -->
 
-    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" aria-hidden="true">
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" aria-describedby="modalDescricao" aria-hidden="true">
 
         <div class="modal-conteudo">
 
@@ -84,7 +91,7 @@
 
             <h2 id="modalTitulo">Cadastro realizado!</h2>
 
-            <p>
+            <p id="modalDescricao">
                 Obrigado por se cadastrar como voluntário.
                 Em breve nossa equipe entrará em contato.
             </p>

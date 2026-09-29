@@ -50,22 +50,22 @@ export const inicio = {
                     <div class="feedback-bloco">
                         <h3>Alertas</h3>
 
-                        <div class="alert alert-sucesso" role="alert">
+                        <div class="alert alert-sucesso">
                             <span class="alert-icone" aria-hidden="true">✓</span>
                             <p class="alert-texto"><strong>Sucesso!</strong> Cadastro realizado com sucesso.</p>
                         </div>
 
-                        <div class="alert alert-info" role="alert">
+                        <div class="alert alert-info">
                             <span class="alert-icone" aria-hidden="true">i</span>
                             <p class="alert-texto"><strong>Informação:</strong> As inscrições para novos voluntários estão abertas.</p>
                         </div>
 
-                        <div class="alert alert-aviso" role="alert">
+                        <div class="alert alert-aviso">
                             <span class="alert-icone" aria-hidden="true">!</span>
                             <p class="alert-texto"><strong>Atenção:</strong> As vagas para este projeto estão próximas do limite.</p>
                         </div>
 
-                        <div class="alert alert-erro" role="alert">
+                        <div class="alert alert-erro">
                             <span class="alert-icone" aria-hidden="true">×</span>
                             <p class="alert-texto"><strong>Erro:</strong> Não foi possível concluir a solicitação.</p>
                         </div>
