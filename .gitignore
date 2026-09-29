@@ -8,3 +8,6 @@ Thumbs.db
 
 # Dependências e build
 node_modules/
+
+# Build de produção
+dist/
