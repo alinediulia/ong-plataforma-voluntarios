@@ -1,0 +1,127 @@
+/* Estado padrão */
+.botao {
+    background-color: var(--cor-primaria);
+    color: var(--cor-fundo);
+    border: 2px solid var(--cor-primaria);
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Variação secundária (contorno) */
+.botao-secundario {
+    background-color: var(--cor-fundo);
+    color: var(--cor-primaria);
+}
+
+.botao-secundario:hover {
+    color: var(--cor-fundo);
+}
+
+/* Mouse sobre o botão */
+.botao:hover {
+    background-color: var(--cor-primaria-hover);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Navegação por teclado */
+.botao:focus {
+    outline: 3px solid var(--cor-destaque);
+    outline-offset: 2px;
+}
+
+/* Botão pressionado */
+.botao:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* Botão desabilitado */
+.botao:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   LAYOUT DO FORMULÁRIO
+   ========================================================= */
+
+.formulario fieldset {
+    margin: 0 0 var(--espaco-3);
+    padding: var(--espaco-3);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-md);
+}
+
+.formulario legend {
+    padding: 0 var(--espaco-1);
+    font-weight: 700;
+    color: var(--cor-primaria);
+}
+
+.formulario label {
+    display: block;
+    margin: var(--espaco-2) 0 6px;
+    font-weight: 600;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid var(--cor-borda);
+    border-radius: var(--raio-sm);
+    font: inherit;
+    background-color: var(--cor-fundo);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-2);
+}
+
+
+/* =========================================================
+   ESTADOS DE VALIDAÇÃO
+   As classes são colocadas pelo js/validacao.js
+   ========================================================= */
+
+/* Campo em foco */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--cor-secundaria);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.2);
+}
+
+/* Campo preenchido corretamente */
+.formulario .campo-valido {
+    border-color: var(--cor-sucesso);
+    background-color: var(--cor-sucesso-fundo);
+}
+
+/* Campo preenchido incorretamente */
+.formulario .campo-invalido {
+    border-color: var(--cor-erro);
+    background-color: var(--cor-erro-fundo);
+}
+
+.formulario .campo-invalido:focus {
+    border-color: var(--cor-erro);
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.2);
+}
+
+/* Mensagem abaixo do campo */
+.mensagem-erro {
+    display: block;
+    min-height: 1.25em;
+    margin-top: 4px;
+    font-size: 0.875rem;
+    color: var(--cor-erro);
+}
