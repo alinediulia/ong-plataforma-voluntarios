@@ -432,13 +432,19 @@ body {
 
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    /* ao fechar: o visibility só muda depois que a opacidade termina */
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
 }
 
 /* Estado aberto (adicionado via JS) */
 .modal.aberto {
     opacity: 1;
     visibility: visible;
+
+    /* ao abrir: visibility muda na hora, para o botão já poder
+       receber foco (elementos invisíveis não recebem foco) */
+    transition: opacity 0.3s ease, visibility 0s;
 }
 
 .modal-conteudo {
