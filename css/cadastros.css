@@ -29,8 +29,8 @@
 }
 
 /* Navegação por teclado */
-.botao:focus {
-    outline: 3px solid var(--cor-destaque);
+.botao:focus-visible {
+    outline: 3px solid var(--cor-foco);
     outline-offset: 2px;
 }
 
@@ -75,7 +75,7 @@
     box-sizing: border-box;
     width: 100%;
     padding: 10px 12px;
-    border: 2px solid var(--cor-borda);
+    border: 2px solid var(--cor-borda-campo);
     border-radius: var(--raio-sm);
     font: inherit;
     background-color: var(--cor-fundo);

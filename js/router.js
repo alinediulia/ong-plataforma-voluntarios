@@ -24,6 +24,20 @@ const rotas = {
 /* Área onde o conteúdo de cada tela é injetado */
 
 const app = document.getElementById("app");
+const anuncioRota = document.getElementById("anuncioRota");
+
+
+/* Leva o foco para o título da tela (ou para a área principal).
+   Assim, quem usa teclado ou leitor de tela começa pelo conteúdo novo. */
+
+function focarConteudo() {
+
+    const titulo = app.querySelector("h1") || app;
+
+    titulo.setAttribute("tabindex", "-1");
+    titulo.focus({ preventScroll: true });
+
+}
 
 
 /* Descobre a rota atual a partir do endereço */
@@ -55,7 +69,10 @@ function renderizar() {
     document.title = pagina.titulo + " | ONG";
     marcarLinkAtivo(caminho);
     window.scrollTo(0, 0);
-    app.focus({ preventScroll: true });
+
+    /* 4. Acessibilidade: foco no título e anúncio da nova página */
+    focarConteudo();
+    anuncioRota.textContent = "Página carregada: " + pagina.titulo;
 
 }
 
@@ -100,6 +117,13 @@ export function iniciarRouter() {
 
     /* Intercepta os cliques nos links internos (data-link) */
     document.addEventListener("click", function (evento) {
+
+        /* "Pular para o conteúdo": não é uma rota, só move o foco */
+        if (evento.target.closest("#pularConteudo")) {
+            evento.preventDefault();
+            focarConteudo();
+            return;
+        }
 
         const link = evento.target.closest("a[data-link]");
 
