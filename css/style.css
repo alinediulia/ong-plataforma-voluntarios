@@ -1,0 +1,824 @@
+:root {
+    /* Cores primárias */
+    --cor-primaria: #2E7D32;
+    --cor-primaria-hover: #1B5E20;
+    --cor-secundaria: #1565C0;
+    --cor-secundaria-hover: #0D47A1;
+
+    /* Cores de destaque */
+    --cor-destaque: #F9A825;
+    --cor-sucesso: #388E3C;
+    --cor-alerta: #EF6C00;
+    --cor-erro: #C62828;
+
+    /* Tons neutros */
+    --cor-fundo: #FFFFFF;
+    --cor-fundo-secundario: #F5F5F5;
+    --cor-texto: #212121;
+    --cor-texto-secundario: #616161;
+    --cor-borda: #BDBDBD;
+
+    /* Tons de apoio para feedback (fundos e bordas suaves) */
+    --cor-sucesso-fundo: #E8F5E9;
+    --cor-sucesso-borda: #A5D6A7;
+    --cor-info-fundo: #E3F2FD;
+    --cor-info-borda: #90CAF9;
+    --cor-aviso-fundo: #FFF8E1;
+    --cor-aviso-borda: #FFE082;
+    --cor-erro-fundo: #FFEBEE;
+    --cor-erro-borda: #EF9A9A;
+
+    /* Bordas e sombras */
+    --raio-sm: 8px;
+    --raio-md: 10px;
+    --raio-lg: 12px;
+    --raio-pill: 999px;
+    --sombra-sm: 0 2px 6px rgba(0, 0, 0, 0.12);
+    --sombra-lg: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+    /* Tipografia */
+    --fonte-base: 16px;
+    --fonte-h1: 2.5rem;
+    --fonte-h2: 2rem;
+    --fonte-h3: 1.5rem;
+    --fonte-h4: 1.25rem;
+    --fonte-h5: 1rem;
+
+    /* Espaçamentos — escala modular de 8px */
+    --espaco-1: 8px;
+    --espaco-2: 16px;
+    --espaco-3: 24px;
+    --espaco-4: 32px;
+    --espaco-5: 40px;
+    --espaco-6: 48px;
+    --espaco-7: 56px;
+    --espaco-8: 64px;
+}
+
+/* Layout principal */
+.container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgb(213, 145, 213);
+}
+
+/* Desktop grande */
+@media (min-width: 1200px) {
+    .container {
+        grid-template-columns: repeat(12, 1fr);
+        background-color: rgb(213, 145, 213);
+    }
+}
+
+/* Desktop */
+@media (max-width: 1199px) {
+    .container {
+        grid-template-columns: repeat(12, 1fr);
+        background-color: rgb(213, 145, 213);
+    }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+    .container {
+        grid-template-columns: repeat(8, 1fr);
+        background-color: rgb(213, 145, 213);
+        font-size: xx-large;
+    }
+}
+
+/* Celular */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+        background-color: rgb(213, 145, 213);
+    }
+}
+
+/* Celular pequeno */
+@media (max-width: 480px) {
+    .container {
+        grid-template-columns: 1fr;
+        background-color: rgb(249, 235, 233);
+    }
+}
+
+/* =========================================================
+   COMPONENTES DE FEEDBACK
+   Badges, Alertas, Toast e Modal
+
+   Todas as cores vêm dos tokens definidos em :root.
+   Para criar uma nova variação basta combinar a classe base
+   (.badge, .alert, .toast) com um modificador de estado:
+   -sucesso | -info | -aviso | -erro
+   ========================================================= */
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: var(--fonte-base);
+    line-height: 1.5;
+    color: var(--cor-texto);
+    background-color: var(--cor-fundo);
+}
+
+
+/* =========================================================
+   CONTAINER DA SEÇÃO
+   ========================================================= */
+
+.feedback-section {
+    padding: var(--espaco-8) var(--espaco-3);
+    background-color: var(--cor-fundo-secundario);
+}
+
+.feedback-container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.feedback-section h2 {
+    margin: 0 0 var(--espaco-2);
+    font-size: var(--fonte-h2);
+    color: var(--cor-primaria);
+}
+
+.feedback-section p {
+    color: var(--cor-texto-secundario);
+}
+
+.feedback-bloco {
+    background-color: var(--cor-fundo);
+    padding: var(--espaco-3);
+    margin-top: var(--espaco-4);
+    border-radius: var(--raio-md);
+    border: 1px solid var(--cor-borda);
+    box-shadow: var(--sombra-sm);
+}
+
+.feedback-bloco h3 {
+    margin: 0 0 var(--espaco-1);
+    font-size: var(--fonte-h4);
+    color: var(--cor-texto);
+}
+
+.feedback-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-2);
+    margin-top: var(--espaco-2);
+}
+
+
+/* =========================================================
+   1. BADGES
+   ========================================================= */
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: var(--espaco-2);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: var(--raio-pill);
+    border: 1px solid transparent;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Marcador circular antes do texto */
+.badge::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+.badge:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--sombra-sm);
+}
+
+/* Projeto ativo */
+.badge-ativo {
+    background-color: var(--cor-sucesso-fundo);
+    color: var(--cor-primaria);
+    border-color: var(--cor-sucesso-borda);
+}
+
+/* Projeto em andamento */
+.badge-andamento {
+    background-color: var(--cor-info-fundo);
+    color: var(--cor-secundaria);
+    border-color: var(--cor-info-borda);
+}
+
+/* Projeto concluído */
+.badge-concluido {
+    background-color: var(--cor-fundo-secundario);
+    color: var(--cor-texto-secundario);
+    border-color: var(--cor-borda);
+}
+
+/* Projeto urgente */
+.badge-urgente {
+    background-color: var(--cor-erro-fundo);
+    color: var(--cor-erro);
+    border-color: var(--cor-erro-borda);
+}
+
+/* Categorias de projeto (educação, arrecadação...) */
+.badge-categoria {
+    background-color: var(--cor-aviso-fundo);
+    color: var(--cor-alerta);
+    border-color: var(--cor-aviso-borda);
+}
+
+
+/* =========================================================
+   2. ALERTAS
+   ========================================================= */
+
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: var(--espaco-2) 20px;
+    margin-top: var(--espaco-2);
+    border-radius: var(--raio-sm);
+    border: 1px solid transparent;
+    border-left-width: 5px;
+}
+
+.alert-icone {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: var(--cor-fundo);
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.alert-texto {
+    margin: 0;
+    color: inherit;
+}
+
+.feedback-section .alert-texto {
+    color: inherit;
+}
+
+.alert-sucesso {
+    background-color: var(--cor-sucesso-fundo);
+    color: var(--cor-primaria-hover);
+    border-color: var(--cor-sucesso-borda);
+    border-left-color: var(--cor-sucesso);
+}
+
+.alert-sucesso .alert-icone {
+    background-color: var(--cor-sucesso);
+}
+
+.alert-info {
+    background-color: var(--cor-info-fundo);
+    color: var(--cor-secundaria-hover);
+    border-color: var(--cor-info-borda);
+    border-left-color: var(--cor-secundaria);
+}
+
+.alert-info .alert-icone {
+    background-color: var(--cor-secundaria);
+}
+
+.alert-aviso {
+    background-color: var(--cor-aviso-fundo);
+    color: #8A4B00;
+    border-color: var(--cor-aviso-borda);
+    border-left-color: var(--cor-destaque);
+}
+
+.alert-aviso .alert-icone {
+    background-color: var(--cor-alerta);
+}
+
+.alert-erro {
+    background-color: var(--cor-erro-fundo);
+    color: #8E1B1B;
+    border-color: var(--cor-erro-borda);
+    border-left-color: var(--cor-erro);
+}
+
+.alert-erro .alert-icone {
+    background-color: var(--cor-erro);
+}
+
+
+/* =========================================================
+   3. TOAST
+   ========================================================= */
+
+.toast {
+    --toast-cor: var(--cor-sucesso);
+
+    position: fixed;
+    right: var(--espaco-3);
+    bottom: var(--espaco-3);
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 350px;
+    padding: var(--espaco-2) 20px;
+
+    background-color: var(--cor-fundo);
+    border-left: 5px solid var(--toast-cor);
+    border-radius: var(--raio-sm);
+    box-shadow: var(--sombra-lg);
+
+    opacity: 0;
+    transform: translateY(150px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Estado visível (adicionado via JS) */
+.toast.visivel {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Variações — só trocam a cor de destaque */
+.toast-sucesso { --toast-cor: var(--cor-sucesso); }
+.toast-info    { --toast-cor: var(--cor-secundaria); }
+.toast-aviso   { --toast-cor: var(--cor-alerta); }
+.toast-erro    { --toast-cor: var(--cor-erro); }
+
+.toast-icone {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--toast-cor);
+    color: var(--cor-fundo);
+    font-weight: 700;
+}
+
+.toast strong {
+    color: var(--cor-texto);
+}
+
+.toast p {
+    margin: 4px 0 0;
+    font-size: 0.875rem;
+    color: var(--cor-texto-secundario);
+}
+
+.toast-fechar {
+    margin-left: auto;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--cor-texto-secundario);
+}
+
+.toast-fechar:hover {
+    color: var(--cor-erro);
+}
+
+
+/* =========================================================
+   4. MODAL
+   ========================================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    background-color: rgba(33, 33, 33, 0.6);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Estado aberto (adicionado via JS) */
+.modal.aberto {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-conteudo {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    padding: var(--espaco-5);
+
+    background-color: var(--cor-fundo);
+    border-radius: var(--raio-lg);
+    border-top: 6px solid var(--cor-primaria);
+    box-shadow: var(--sombra-lg);
+    text-align: center;
+
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal.aberto .modal-conteudo {
+    transform: scale(1);
+}
+
+.modal-conteudo h2 {
+    margin: 0 0 var(--espaco-1);
+    color: var(--cor-texto);
+    font-size: var(--fonte-h3);
+}
+
+.modal-conteudo p {
+    margin: 0 0 var(--espaco-3);
+    color: var(--cor-texto-secundario);
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--cor-texto-secundario);
+}
+
+.modal-fechar:hover {
+    color: var(--cor-erro);
+}
+
+.modal-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-color: var(--cor-sucesso-fundo);
+    color: var(--cor-sucesso);
+    border: 2px solid var(--cor-sucesso-borda);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+.toast-fechar:focus-visible,
+.modal-fechar:focus-visible {
+    outline: 3px solid var(--cor-destaque);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toast,
+    .modal,
+    .modal-conteudo,
+    .badge {
+        transition: none;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .feedback-section {
+        padding: var(--espaco-5) var(--espaco-2);
+    }
+
+    .feedback-bloco {
+        padding: 20px;
+    }
+
+    .toast {
+        left: var(--espaco-2);
+        right: var(--espaco-2);
+        bottom: var(--espaco-2);
+        width: auto;
+    }
+
+    .modal-conteudo {
+        padding: var(--espaco-4) 20px;
+    }
+}
+
+
+/* =========================================================
+   ESTRUTURA DA SPA
+   Cabeçalho e rodapé fixos; o conteúdo muda dentro de #app
+   ========================================================= */
+
+.cabecalho {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espaco-2);
+    padding: var(--espaco-2) var(--espaco-3);
+    background-color: var(--cor-fundo);
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.logo img {
+    display: block;
+    height: auto;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-1);
+}
+
+.menu a {
+    padding: var(--espaco-1) var(--espaco-2);
+    border-radius: var(--raio-sm);
+    color: var(--cor-texto);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.menu a:hover {
+    background-color: var(--cor-fundo-secundario);
+}
+
+/* Link da página atual (marcado pelo router.js) */
+.menu a[aria-current="page"] {
+    background-color: var(--cor-sucesso-fundo);
+    color: var(--cor-primaria);
+}
+
+.menu a:focus-visible {
+    outline: 3px solid var(--cor-destaque);
+    outline-offset: 2px;
+}
+
+/* A div principal recebe foco a cada troca de tela,
+   mas não precisa exibir contorno */
+#app:focus {
+    outline: none;
+}
+
+.pagina {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--espaco-5) var(--espaco-3);
+}
+
+.pagina img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Link com aparência de botão */
+a.botao {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.rodape {
+    padding: var(--espaco-3);
+    text-align: center;
+    color: var(--cor-texto-secundario);
+    background-color: var(--cor-fundo-secundario);
+    border-top: 1px solid var(--cor-borda);
+}
+
+@media (max-width: 768px) {
+
+    .cabecalho {
+        justify-content: center;
+    }
+
+    .pagina {
+        padding: var(--espaco-4) var(--espaco-2);
+    }
+}
+
+
+/* =========================================================
+   CARTÕES DE PROJETO (gerados por js/components/cardProjeto.js)
+   ========================================================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--espaco-3);
+    margin-top: var(--espaco-3);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    box-shadow: var(--sombra-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-lg);
+}
+
+.pagina .card-imagem {
+    width: 100%;
+    max-width: none;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-corpo {
+    padding: var(--espaco-2) 20px var(--espaco-3);
+}
+
+.card-corpo .badges {
+    margin-top: 0;
+}
+
+.card-corpo h3 {
+    margin: var(--espaco-2) 0 var(--espaco-1);
+    font-size: var(--fonte-h4);
+}
+
+.card-corpo p {
+    margin: 0;
+    color: var(--cor-texto-secundario);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition: none;
+    }
+}
+
+
+/* =========================================================
+   MENU RECOLHÍVEL (celular)
+   O botão ☰ só aparece em telas pequenas; a classe
+   .menu-aberto é colocada pelo js/components/menu.js
+   ========================================================= */
+
+.menu-botao {
+    display: none;
+    padding: 4px 12px;
+    border: 2px solid var(--cor-borda);
+    border-radius: var(--raio-sm);
+    background: var(--cor-fundo);
+    font-size: 24px;
+    line-height: 1.2;
+    cursor: pointer;
+    color: var(--cor-texto);
+}
+
+.menu-botao:focus-visible {
+    outline: 3px solid var(--cor-destaque);
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+
+    .cabecalho {
+        justify-content: space-between;
+    }
+
+    .menu-botao {
+        display: block;
+    }
+
+    /* menu escondido por padrão no celular */
+    .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .menu.menu-aberto {
+        display: flex;
+    }
+}
+
+
+/* =========================================================
+   LISTA DE VOLUNTÁRIOS (dados do localStorage)
+   ========================================================= */
+
+.voluntarios {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: var(--espaco-2) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.voluntario {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: var(--espaco-2);
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-left: 5px solid var(--cor-primaria);
+    border-radius: var(--raio-sm);
+}
+
+.voluntario > div {
+    flex: 1;
+    min-width: 180px;
+}
+
+.voluntario p {
+    margin: 4px 0 0;
+    font-size: 0.875rem;
+    color: var(--cor-texto-secundario);
+}
+
+.voluntario-remover {
+    padding: 6px 12px;
+    border: 1px solid var(--cor-erro-borda);
+    border-radius: var(--raio-sm);
+    background: var(--cor-fundo);
+    color: var(--cor-erro);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.voluntario-remover:hover {
+    background-color: var(--cor-erro-fundo);
+}
+
+.voluntario-remover:focus-visible {
+    outline: 3px solid var(--cor-destaque);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   GRÁFICO (Chart.js)
+   O Chart.js ocupa a altura do elemento pai, então a
+   altura é definida aqui.
+   ========================================================= */
+
+.grafico {
+    position: relative;
+    height: 260px;
+    margin: var(--espaco-2) 0 var(--espaco-3);
+    padding: var(--espaco-2);
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-md);
+}

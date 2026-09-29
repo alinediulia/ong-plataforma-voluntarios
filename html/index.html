@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início | ONG</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cadastros.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         CABEÇALHO E MENU
+         Fica fixo: só o conteúdo de <main> muda.
+         Links com data-link são interceptados pelo router.js
+         ===================================================== -->
+
+    <header class="cabecalho">
+
+        <a href="#/" data-link class="logo">
+            <img width="120" src="../img/logo.jpg" alt="Logo da ONG">
+        </a>
+
+        <button type="button" class="menu-botao" id="botaoMenu"
+            aria-expanded="false" aria-controls="menuPrincipal" aria-label="Abrir menu">
+            ☰
+        </button>
+
+        <nav class="menu" id="menuPrincipal" aria-label="Menu principal">
+            <a href="#/" data-link>Início</a>
+            <a href="#/projetos" data-link>Projetos</a>
+            <a href="#/cadastro" data-link>Seja Voluntário</a>
+            <a href="#/contato" data-link>Contato</a>
+        </nav>
+
+    </header>
+
+
+    <!-- =====================================================
+         ÁREA PRINCIPAL DA SPA
+         O conteúdo de cada tela é injetado aqui pelo JavaScript
+         ===================================================== -->
+
+    <main id="app" tabindex="-1"></main>
+
+
+    <footer class="rodape">
+        <p>&copy; 2026 ONG - Todos os direitos reservados.</p>
+    </footer>
+
+
+    <!-- =====================================================
+         TOAST (global, usado por qualquer tela)
+         Variações: toast-sucesso | toast-info | toast-aviso | toast-erro
+         ===================================================== -->
+
+    <div id="toast" class="toast toast-sucesso" role="status" aria-live="polite">
+
+        <span class="toast-icone" id="toastIcone" aria-hidden="true">✓</span>
+
+        <div>
+            <strong id="toastTitulo">Sucesso!</strong>
+            <p id="toastMensagem">Sua ação foi realizada com sucesso.</p>
+        </div>
+
+        <button type="button" class="toast-fechar" id="fecharToast" aria-label="Fechar notificação">×</button>
+
+    </div>
+
+
+    <!-- =====================================================
+         MODAL (global, usado por qualquer tela)
+         ===================================================== -->
+
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" aria-hidden="true">
+
+        <div class="modal-conteudo">
+
+            <button type="button" class="modal-fechar" id="fecharModal" aria-label="Fechar janela">×</button>
+
+            <span class="modal-icone" aria-hidden="true">✓</span>
+
+            <h2 id="modalTitulo">Cadastro realizado!</h2>
+
+            <p>
+                Obrigado por se cadastrar como voluntário.
+                Em breve nossa equipe entrará em contato.
+            </p>
+
+            <button type="button" class="botao" id="confirmarModal">Entendi</button>
+
+        </div>
+
+    </div>
+
+
+    <!-- type="module" permite usar import/export entre os arquivos JS -->
+    <script type="module" src="../js/main.js"></script>
+
+</body>
+
+</html>
