@@ -1,0 +1,163 @@
+/* =========================================================
+   TEMAS DE COR: ESCURO E ALTO CONTRASTE
+
+   O tema claro é o padrão, definido no :root do style.css.
+   Aqui só as VARIÁVEIS de cor são redefinidas: como todos os
+   componentes usam var(--cor-...), nenhuma regra precisa ser
+   repetida.
+
+   O atributo data-tema no <html> é colocado pelo JavaScript
+   (js/components/tema.js e o script no <head> do index.html).
+
+   Contraste mínimo de texto verificado em cada tema:
+   claro 4.56:1 | escuro 7.13:1 | alto contraste 9.20:1
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   TEMA ESCURO
+   Fundos quase pretos (não #000, que cansa a vista) e cores
+   da marca em tons claros, para manter o contraste.
+   --------------------------------------------------------- */
+
+:root[data-tema="escuro"] {
+    /* Neutros */
+    --cor-fundo: #121212;
+    --cor-fundo-secundario: #1E1E1E;
+    --cor-texto: #E8E8E8;
+    --cor-texto-secundario: #B3B3B3;
+    --cor-borda: #3D3D3D;
+    --cor-borda-campo: #8C8C8C;
+
+    /* Marca e estados */
+    --cor-primaria: #81C784;
+    --cor-primaria-hover: #A5D6A7;
+    --cor-secundaria: #64B5F6;
+    --cor-secundaria-hover: #90CAF9;
+    --cor-destaque: #FFD54F;
+    --cor-sucesso: #66BB6A;
+    --cor-alerta: #FFB74D;
+    --cor-erro: #FF8A80;
+
+    /* Fundos e bordas de feedback */
+    --cor-sucesso-fundo: #1B2E1D;
+    --cor-sucesso-borda: #2E5E32;
+    --cor-info-fundo: #0F2438;
+    --cor-info-borda: #1E4A73;
+    --cor-aviso-fundo: #2E2410;
+    --cor-aviso-borda: #6B4F12;
+    --cor-erro-fundo: #3A1414;
+    --cor-erro-borda: #7A2A2A;
+
+    /* Textos especiais e foco */
+    --cor-aviso-texto: #FFCC80;
+    --cor-erro-texto: #FFB4AB;
+    --cor-foco: #90CAF9;
+    --cor-texto-inverso: #121212;
+
+    /* Sombras mais fortes para aparecer sobre fundo escuro */
+    --sombra-sm: 0 2px 6px rgba(0, 0, 0, 0.5);
+    --sombra-lg: 0 10px 30px rgba(0, 0, 0, 0.7);
+    --cor-fundo-modal: rgba(0, 0, 0, 0.75);
+
+    color-scheme: dark;
+}
+
+
+/* ---------------------------------------------------------
+   TEMA ALTO CONTRASTE
+   Preto e branco puros, com amarelo, ciano, verde e salmão
+   como destaque. Pensado para baixa visão: contraste de
+   no mínimo 9:1 (acima até do nível AAA, que pede 7:1).
+   --------------------------------------------------------- */
+
+:root[data-tema="alto-contraste"] {
+    /* Neutros */
+    --cor-fundo: #000000;
+    --cor-fundo-secundario: #000000;
+    --cor-texto: #FFFFFF;
+    --cor-texto-secundario: #FFFFFF;
+    --cor-borda: #FFFFFF;
+    --cor-borda-campo: #FFFFFF;
+
+    /* Marca e estados */
+    --cor-primaria: #FFE500;
+    --cor-primaria-hover: #FFFFFF;
+    --cor-secundaria: #00E5FF;
+    --cor-secundaria-hover: #00E5FF;
+    --cor-destaque: #FFE500;
+    --cor-sucesso: #00E676;
+    --cor-alerta: #FFE500;
+    --cor-erro: #FF8A80;
+
+    /* Fundos e bordas de feedback */
+    --cor-sucesso-fundo: #000000;
+    --cor-sucesso-borda: #00E676;
+    --cor-info-fundo: #000000;
+    --cor-info-borda: #00E5FF;
+    --cor-aviso-fundo: #000000;
+    --cor-aviso-borda: #FFE500;
+    --cor-erro-fundo: #000000;
+    --cor-erro-borda: #FF8A80;
+
+    /* Textos especiais e foco */
+    --cor-aviso-texto: #FFE500;
+    --cor-erro-texto: #FF8A80;
+    --cor-foco: #00E5FF;
+    --cor-texto-inverso: #000000;
+
+    /* Sem sombras: a separação é feita por bordas */
+    --sombra-sm: none;
+    --sombra-lg: none;
+    --cor-fundo-modal: rgba(0, 0, 0, 0.9);
+
+    color-scheme: dark;
+}
+
+/* No alto contraste, a informação não depende só de cor:
+   bordas mais grossas, links sublinhados e contorno de foco maior */
+
+:root[data-tema="alto-contraste"] a:not(.botao):not(.pular-conteudo):not(.logo) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+:root[data-tema="alto-contraste"] .menu a[aria-current="page"] {
+    outline: 2px solid var(--cor-primaria);
+}
+
+:root[data-tema="alto-contraste"] .badge,
+:root[data-tema="alto-contraste"] .card,
+:root[data-tema="alto-contraste"] .feedback-bloco,
+:root[data-tema="alto-contraste"] .voluntario {
+    border-width: 2px;
+}
+
+:root[data-tema="alto-contraste"] :focus-visible {
+    outline-width: 4px;
+}
+
+
+/* ---------------------------------------------------------
+   MODO DE CORES FORÇADAS (Windows: "Contraste alto")
+   O sistema troca todas as cores; só garantimos que
+   elementos importantes não desapareçam.
+   --------------------------------------------------------- */
+
+@media (forced-colors: active) {
+
+    .badge::before,
+    .alert-icone,
+    .toast-icone {
+        forced-color-adjust: none;
+        background-color: CanvasText;
+        color: Canvas;
+    }
+
+    .alert,
+    .toast,
+    .card,
+    .voluntario {
+        border: 2px solid CanvasText;
+    }
+}

@@ -9,7 +9,8 @@
 
 const CHAVES = {
     voluntarios: "ong:voluntarios",
-    rascunho: "ong:rascunhoCadastro"
+    rascunho: "ong:rascunhoCadastro",
+    tema: "ong:tema"
 };
 
 
@@ -121,5 +122,24 @@ export function salvarRascunho(dados) {
 export function limparRascunho() {
 
     remover(CHAVES.rascunho);
+
+}
+
+
+/* ---------------------------------------------------------
+   PREFERÊNCIA DE TEMA (texto: "auto", "claro", "escuro"
+   ou "alto-contraste")
+   --------------------------------------------------------- */
+
+export function lerTema() {
+
+    return ler(CHAVES.tema, "auto");
+
+}
+
+
+export function salvarTema(tema) {
+
+    gravar(CHAVES.tema, tema);
 
 }

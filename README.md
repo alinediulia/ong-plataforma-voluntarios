@@ -17,6 +17,7 @@ Foi desenvolvida com **HTML5, CSS3 e JavaScript puro (ES6 Modules)**, sem framew
 - [Arquitetura](#arquitetura)
 - [Dados salvos no navegador](#dados-salvos-no-navegador)
 - [Acessibilidade](#acessibilidade)
+- [Temas de cor](#temas-de-cor)
 - [Fluxo de trabalho](#fluxo-de-trabalho)
 - [Autoria](#autoria)
 
@@ -29,6 +30,7 @@ Foi desenvolvida com **HTML5, CSS3 e JavaScript puro (ES6 Modules)**, sem framew
 - **Gráfico de voluntários por área**, feito com Chart.js e carregado só quando necessário
 - **Componentes de feedback**: badges, alertas, toast e modal
 - **Layout responsivo**, com menu recolhível no celular
+- **Temas claro, escuro e alto contraste**, com opção de seguir o sistema
 
 ## Tecnologias
 
@@ -89,8 +91,8 @@ Resultado atual:
 
 | Tipo | Código-fonte | Produção | Redução |
 |---|---|---|---|
-| JavaScript | 47,7 KB | 25,3 KB | −47% |
-| CSS | 21,9 KB | 13,3 KB | −39% |
+| JavaScript | 50,9 KB | 26,4 KB | −48% |
+| CSS | 27,9 KB | 16,3 KB | −42% |
 
 A pasta `dist/` é gerada automaticamente e, por isso, não é versionada (está no `.gitignore`).
 
@@ -160,6 +162,7 @@ export const exemplo = {
 |---|---|
 | `ong:voluntarios` | Array de voluntários cadastrados |
 | `ong:rascunhoCadastro` | Rascunho do formulário em preenchimento |
+| `ong:tema` | Tema escolhido (`auto`, `claro`, `escuro` ou `alto-contraste`) |
 
 Por ser um dado sensível, o **CPF não é armazenado**.
 
@@ -186,6 +189,27 @@ O projeto segue as diretrizes da **WCAG 2.1, nível AA**. A auditoria automátic
 | Status dos projetos indicado por texto, não só por cor | 1.4.1 Uso de cor |
 | Textos alternativos nas imagens; ícones decorativos com `aria-hidden` | 1.1.1 Conteúdo não textual |
 | Animações desativadas com `prefers-reduced-motion` | 2.3.3 Animação por interações |
+
+## Temas de cor
+
+O seletor **Tema**, no cabeçalho, oferece quatro opções:
+
+| Opção | Comportamento |
+|---|---|
+| Automático | Segue o sistema operacional (`prefers-color-scheme` e `prefers-contrast`) e muda sozinho se o sistema mudar |
+| Claro | Tema padrão |
+| Escuro | Fundos quase pretos e cores da marca em tons claros |
+| Alto contraste | Preto e branco com destaques em amarelo, ciano, verde e salmão; links sublinhados e bordas mais grossas |
+
+**Como funciona:** todas as cores são variáveis CSS (`--cor-...`). O arquivo `css/temas.css` redefine só essas variáveis para `[data-tema="escuro"]` e `[data-tema="alto-contraste"]`, sem repetir nenhuma regra. O JavaScript coloca o atributo `data-tema` no `<html>`, e um script curto no `<head>` aplica o tema salvo antes de a página aparecer, evitando que o tema claro "pisque".
+
+| Tema | Menor contraste de texto |
+|---|---|
+| Claro | 4,56:1 (AA exige 4,5:1) |
+| Escuro | 7,13:1 |
+| Alto contraste | 9,20:1 (acima do AAA, que exige 7:1) |
+
+O modo de cores forçadas do Windows (`forced-colors`) também é respeitado.
 
 ## Fluxo de trabalho
 
