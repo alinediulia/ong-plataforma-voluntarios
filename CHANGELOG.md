@@ -3,6 +3,18 @@
 Todas as mudanças relevantes do projeto são registradas aqui.
 O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e o projeto usa [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.1.0] - 2026-09-30
+
+### Adicionado
+- Temas escuro e alto contraste, com opção automática que segue o sistema
+- Adequação à WCAG 2.1 nível AA: link "Pular para o conteúdo", foco no título e anúncio a cada troca de tela, foco preso no modal, `autocomplete` nos campos
+- Testes automatizados com `node --test`
+- Build de produção com esbuild (`npm run build`)
+- README com pré-requisitos, instalação, build, testes, acessibilidade e temas
+
+### Corrigido
+- Contraste insuficiente no badge de categoria, no contorno de foco, na borda dos campos e nos ícones de sucesso e aviso
+
 ## [1.0.1] - 2026-09-29
 
 ### Corrigido

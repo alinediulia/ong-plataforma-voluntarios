@@ -118,7 +118,8 @@ Os testes usam o executor nativo do Node.js e ficam na pasta `tests/`. Eles cobr
 │   └── index.html            # página única: cabeçalho, <main id="app">, rodapé, toast e modal
 ├── css/
 │   ├── style.css             # variáveis de design, layout e componentes
-│   └── cadastros.css         # botões, formulário e estados de validação
+│   ├── cadastros.css         # botões, formulário e estados de validação
+│   └── temas.css             # cores dos temas escuro e alto contraste
 ├── img/                      # imagens dos projetos e logotipo
 ├── js/
 │   ├── main.js               # ponto de entrada
