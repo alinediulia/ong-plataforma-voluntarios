@@ -4,7 +4,7 @@
    - JS: todos os módulos unidos em um arquivo e minificados
    - CSS: arquivos minificados
    - HTML: minificado (incluindo o script do <head>)
-   - imagens: copiadas
+   - imagens: copia só as versões otimizadas (npm run imagens)
    Uso: npm run build
    ========================================================= */
 
@@ -90,9 +90,13 @@ for (const arquivo of await readdir("html")) {
 }
 
 
-/* 5. Imagens: copiadas como estão */
+/* 5. Imagens: copia as versões otimizadas (WebP e JPEG).
+      Os originais em img/originais/ não vão para produção. */
 
-await cp("img", join(DESTINO, "img"), { recursive: true });
+await cp("img", join(DESTINO, "img"), {
+    recursive: true,
+    filter: (caminho) => !caminho.includes("originais")
+});
 
 
 /* 6. Relatório de tamanho (código-fonte x produção) */
@@ -100,7 +104,8 @@ await cp("img", join(DESTINO, "img"), { recursive: true });
 const linhas = [
     ["JavaScript", "js", "js"],
     ["CSS", "css", "css"],
-    ["HTML", "html", "html"]
+    ["HTML", "html", "html"],
+    ["Imagens*", "img/originais", "img"]
 ];
 
 console.log("\nBuild concluída em dist/\n");
@@ -112,4 +117,5 @@ for (const [nome, origem, destino] of linhas) {
     console.log(`${nome.padEnd(11)} ${emKB(antes).padStart(9)} → ${emKB(depois).padStart(9)}  (-${reducao}%)`);
 }
 
+console.log("\n* WebP + JPEG somados; o navegador baixa só um dos dois (WebP).");
 console.log();
