@@ -7,9 +7,28 @@
     <title>Início | ONG</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/cadastros.css">
+    <link rel="stylesheet" href="../css/temas.css">
+
+    <!-- Aplica o tema salvo ANTES de a página aparecer, para não
+         "piscar" o tema claro. A lógica completa está em
+         js/components/tema.js -->
+    <script>
+        (function () {
+            var tema = "auto";
+            try { tema = JSON.parse(localStorage.getItem("ong:tema")) || "auto"; } catch (erro) {}
+            if (tema === "auto") {
+                tema = matchMedia("(prefers-contrast: more)").matches ? "alto-contraste"
+                    : matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            }
+            document.documentElement.dataset.tema = tema;
+        })();
+    </script>
 </head>
 
 <body>
+
+    <!-- Primeiro item do Tab: permite pular o menu (WCAG 2.4.1) -->
+    <a href="#app" class="pular-conteudo" id="pularConteudo">Pular para o conteúdo</a>
 
     <!-- =====================================================
          CABEÇALHO E MENU
@@ -20,13 +39,23 @@
     <header class="cabecalho">
 
         <a href="#/" data-link class="logo">
-            <img width="120" src="../img/logo.jpg" alt="Logo da ONG">
+            <img width="120" height="120" src="../img/logo.jpg" alt="ONG — ir para a página inicial">
         </a>
 
         <button type="button" class="menu-botao" id="botaoMenu"
             aria-expanded="false" aria-controls="menuPrincipal" aria-label="Abrir menu">
             ☰
         </button>
+
+        <div class="seletor-tema">
+            <label for="seletorTema">Tema</label>
+            <select id="seletorTema">
+                <option value="auto">Automático</option>
+                <option value="claro">Claro</option>
+                <option value="escuro">Escuro</option>
+                <option value="alto-contraste">Alto contraste</option>
+            </select>
+        </div>
 
         <nav class="menu" id="menuPrincipal" aria-label="Menu principal">
             <a href="#/" data-link>Início</a>
@@ -45,8 +74,12 @@
 
     <main id="app" tabindex="-1"></main>
 
+    <!-- Anuncia a troca de página para leitores de tela -->
+    <p class="sr-only" id="anuncioRota" aria-live="polite"></p>
+
 
     <footer class="rodape">
+        <p>Contato: <a href="mailto:contato@ong.org.br">contato@ong.org.br</a></p>
         <p>&copy; 2026 ONG - Todos os direitos reservados.</p>
     </footer>
 
@@ -74,7 +107,7 @@
          MODAL (global, usado por qualquer tela)
          ===================================================== -->
 
-    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" aria-hidden="true">
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" aria-describedby="modalDescricao" aria-hidden="true">
 
         <div class="modal-conteudo">
 
@@ -84,7 +117,7 @@
 
             <h2 id="modalTitulo">Cadastro realizado!</h2>
 
-            <p>
+            <p id="modalDescricao">
                 Obrigado por se cadastrar como voluntário.
                 Em breve nossa equipe entrará em contato.
             </p>

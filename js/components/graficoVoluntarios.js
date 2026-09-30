@@ -66,6 +66,48 @@ function corDoTema(variavel) {
 }
 
 
+/* Cores do gráfico lidas do tema atual */
+
+function coresDoGrafico() {
+
+    return {
+        barra: corDoTema("--cor-primaria"),
+        barraHover: corDoTema("--cor-primaria-hover"),
+        texto: corDoTema("--cor-texto-secundario"),
+        grade: corDoTema("--cor-borda")
+    };
+
+}
+
+
+function opcoesDeCor(cores) {
+
+    return {
+        x: { ticks: { color: cores.texto }, grid: { color: cores.grade } },
+        y: { beginAtZero: true, ticks: { precision: 0, color: cores.texto }, grid: { color: cores.grade } }
+    };
+
+}
+
+
+/* Quando o tema muda, o gráfico troca as cores sem ser recriado */
+
+window.addEventListener("temaalterado", function () {
+
+    if (!grafico) {
+        return;
+    }
+
+    const cores = coresDoGrafico();
+
+    grafico.data.datasets[0].backgroundColor = cores.barra;
+    grafico.data.datasets[0].hoverBackgroundColor = cores.barraHover;
+    grafico.options.scales = opcoesDeCor(cores);
+    grafico.update();
+
+});
+
+
 /* Desenha (ou redesenha) o gráfico dentro do elemento indicado */
 
 export async function renderizarGrafico(container, voluntarios) {
@@ -104,6 +146,8 @@ export async function renderizarGrafico(container, voluntarios) {
             return;
         }
 
+        const cores = coresDoGrafico();
+
         grafico = new ChartJS(canvas, {
             type: "bar",
             data: {
@@ -111,8 +155,8 @@ export async function renderizarGrafico(container, voluntarios) {
                 datasets: [{
                     label: "Voluntários",
                     data: areas.map(function (area) { return contagem[area]; }),
-                    backgroundColor: corDoTema("--cor-primaria"),
-                    hoverBackgroundColor: corDoTema("--cor-primaria-hover"),
+                    backgroundColor: cores.barra,
+                    hoverBackgroundColor: cores.barraHover,
                     borderRadius: 6
                 }]
             },
@@ -122,12 +166,7 @@ export async function renderizarGrafico(container, voluntarios) {
                 plugins: {
                     legend: { display: false }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { precision: 0 }
-                    }
-                }
+                scales: opcoesDeCor(cores)
             }
         });
 

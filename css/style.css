@@ -7,8 +7,8 @@
 
     /* Cores de destaque */
     --cor-destaque: #F9A825;
-    --cor-sucesso: #388E3C;
-    --cor-alerta: #EF6C00;
+    --cor-sucesso: #2E7D32;
+    --cor-alerta: #B45309;
     --cor-erro: #C62828;
 
     /* Tons neutros */
@@ -27,6 +27,24 @@
     --cor-aviso-borda: #FFE082;
     --cor-erro-fundo: #FFEBEE;
     --cor-erro-borda: #EF9A9A;
+
+    /* Textos sobre fundos claros (contraste mínimo 4.5:1 — WCAG 1.4.3) */
+    --cor-aviso-texto: #A84E00;
+    --cor-erro-texto: #8E1B1B;
+
+    /* Acessibilidade (contraste mínimo 3:1 — WCAG 1.4.11) */
+    --cor-foco: #0D47A1;
+    --cor-borda-campo: #767676;
+
+    /* Texto sobre fundos coloridos fortes (botões, ícones) */
+    --cor-texto-inverso: #FFFFFF;
+
+    /* Camada escura atrás do modal */
+    --cor-fundo-modal: rgba(33, 33, 33, 0.6);
+
+    /* Informa ao navegador o tema dos controles nativos
+       (calendário, select, barra de rolagem) */
+    color-scheme: light;
 
     /* Bordas e sombras */
     --raio-sm: 8px;
@@ -128,6 +146,10 @@ body {
     line-height: 1.5;
     color: var(--cor-texto);
     background-color: var(--cor-fundo);
+}
+
+a {
+    color: var(--cor-secundaria);
 }
 
 
@@ -247,7 +269,7 @@ body {
 /* Categorias de projeto (educação, arrecadação...) */
 .badge-categoria {
     background-color: var(--cor-aviso-fundo);
-    color: var(--cor-alerta);
+    color: var(--cor-aviso-texto);
     border-color: var(--cor-aviso-borda);
 }
 
@@ -275,7 +297,7 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    color: var(--cor-fundo);
+    color: var(--cor-texto-inverso);
     font-size: 0.875rem;
     font-weight: 700;
 }
@@ -313,7 +335,7 @@ body {
 
 .alert-aviso {
     background-color: var(--cor-aviso-fundo);
-    color: #8A4B00;
+    color: var(--cor-aviso-texto);
     border-color: var(--cor-aviso-borda);
     border-left-color: var(--cor-destaque);
 }
@@ -324,7 +346,7 @@ body {
 
 .alert-erro {
     background-color: var(--cor-erro-fundo);
-    color: #8E1B1B;
+    color: var(--cor-erro-texto);
     border-color: var(--cor-erro-borda);
     border-left-color: var(--cor-erro);
 }
@@ -385,7 +407,7 @@ body {
     height: 32px;
     border-radius: 50%;
     background-color: var(--toast-cor);
-    color: var(--cor-fundo);
+    color: var(--cor-texto-inverso);
     font-weight: 700;
 }
 
@@ -428,7 +450,7 @@ body {
     justify-content: center;
     padding: 20px;
 
-    background-color: rgba(33, 33, 33, 0.6);
+    background-color: var(--cor-fundo-modal);
 
     opacity: 0;
     visibility: hidden;
@@ -516,7 +538,7 @@ body {
 
 .toast-fechar:focus-visible,
 .modal-fechar:focus-visible {
-    outline: 3px solid var(--cor-destaque);
+    outline: 3px solid var(--cor-foco);
     outline-offset: 2px;
     border-radius: 4px;
 }
@@ -605,15 +627,10 @@ body {
 }
 
 .menu a:focus-visible {
-    outline: 3px solid var(--cor-destaque);
+    outline: 3px solid var(--cor-foco);
     outline-offset: 2px;
 }
 
-/* A div principal recebe foco a cada troca de tela,
-   mas não precisa exibir contorno */
-#app:focus {
-    outline: none;
-}
 
 .pagina {
     max-width: 960px;
@@ -720,7 +737,7 @@ a.botao {
 .menu-botao {
     display: none;
     padding: 4px 12px;
-    border: 2px solid var(--cor-borda);
+    border: 2px solid var(--cor-borda-campo);
     border-radius: var(--raio-sm);
     background: var(--cor-fundo);
     font-size: 24px;
@@ -730,7 +747,7 @@ a.botao {
 }
 
 .menu-botao:focus-visible {
-    outline: 3px solid var(--cor-destaque);
+    outline: 3px solid var(--cor-foco);
     outline-offset: 2px;
 }
 
@@ -808,7 +825,7 @@ a.botao {
 }
 
 .voluntario-remover:focus-visible {
-    outline: 3px solid var(--cor-destaque);
+    outline: 3px solid var(--cor-foco);
     outline-offset: 2px;
 }
 
@@ -827,4 +844,96 @@ a.botao {
     background-color: var(--cor-fundo);
     border: 1px solid var(--cor-borda);
     border-radius: var(--raio-md);
+}
+
+
+
+/* =========================================================
+   ACESSIBILIDADE — LINK "PULAR PARA O CONTEÚDO"
+   Fica fora da tela e aparece quando recebe foco pelo Tab
+   (WCAG 2.4.1 — Ignorar blocos)
+   ========================================================= */
+
+.pular-conteudo {
+    position: absolute;
+    top: -100px;
+    left: var(--espaco-2);
+    z-index: 3000;
+    padding: var(--espaco-1) var(--espaco-2);
+    background-color: var(--cor-foco);
+    color: var(--cor-texto-inverso);
+    font-weight: 700;
+    border-radius: var(--raio-sm);
+    text-decoration: none;
+}
+
+.pular-conteudo:focus {
+    top: var(--espaco-2);
+    outline: 3px solid var(--cor-destaque);
+    outline-offset: 2px;
+}
+
+/* Títulos que recebem foco na troca de página não mostram contorno */
+[tabindex="-1"]:focus {
+    outline: none;
+}
+
+/* Texto visível só para leitores de tela */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.instrucao-formulario {
+    margin-bottom: var(--espaco-3);
+    font-size: 0.875rem;
+}
+
+
+
+/* =========================================================
+   SELETOR DE TEMA (cabeçalho)
+   ========================================================= */
+
+.logo { order: 0; }
+.menu { order: 1; }
+.seletor-tema { order: 2; }
+.menu-botao { order: 3; }
+
+.seletor-tema {
+    display: flex;
+    align-items: center;
+    gap: var(--espaco-1);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.seletor-tema select {
+    padding: 6px 10px;
+    border: 2px solid var(--cor-borda-campo);
+    border-radius: var(--raio-sm);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font: inherit;
+    cursor: pointer;
+}
+
+.seletor-tema select:focus-visible {
+    outline: 3px solid var(--cor-foco);
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+
+    /* no celular: logo | tema | ☰ e o menu embaixo */
+    .seletor-tema { order: 1; }
+    .menu-botao { order: 2; }
+    .menu { order: 3; }
 }

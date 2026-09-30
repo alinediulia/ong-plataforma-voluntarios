@@ -29,7 +29,7 @@ const IDADE_MINIMA = 16;
 
 /* Confere os dois dígitos verificadores do CPF */
 
-function cpfValido(cpf) {
+export function cpfValido(cpf) {
 
     const numeros = cpf.replace(/\D/g, "");
 
@@ -60,7 +60,7 @@ function cpfValido(cpf) {
 
 /* Calcula a idade em anos completos */
 
-function calcularIdade(dataNascimento) {
+export function calcularIdade(dataNascimento) {
 
     const hoje = new Date();
     let idade = hoje.getFullYear() - dataNascimento.getFullYear();

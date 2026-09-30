@@ -1,7 +1,7 @@
 /* Estado padrão */
 .botao {
     background-color: var(--cor-primaria);
-    color: var(--cor-fundo);
+    color: var(--cor-texto-inverso);
     border: 2px solid var(--cor-primaria);
     border-radius: 8px;
     padding: 12px 24px;
@@ -19,7 +19,7 @@
 }
 
 .botao-secundario:hover {
-    color: var(--cor-fundo);
+    color: var(--cor-texto-inverso);
 }
 
 /* Mouse sobre o botão */
@@ -29,8 +29,8 @@
 }
 
 /* Navegação por teclado */
-.botao:focus {
-    outline: 3px solid var(--cor-destaque);
+.botao:focus-visible {
+    outline: 3px solid var(--cor-foco);
     outline-offset: 2px;
 }
 
@@ -75,9 +75,10 @@
     box-sizing: border-box;
     width: 100%;
     padding: 10px 12px;
-    border: 2px solid var(--cor-borda);
+    border: 2px solid var(--cor-borda-campo);
     border-radius: var(--raio-sm);
     font: inherit;
+    color: inherit;
     background-color: var(--cor-fundo);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -127,4 +128,9 @@ textarea:focus {
     margin-top: 4px;
     font-size: 0.875rem;
     color: var(--cor-erro);
+}
+
+.formulario ::placeholder {
+    color: var(--cor-texto-secundario);
+    opacity: 1;
 }
