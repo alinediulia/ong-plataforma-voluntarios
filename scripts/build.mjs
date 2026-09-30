@@ -3,12 +3,14 @@
    Gera a pasta dist/ com:
    - JS: todos os módulos unidos em um arquivo e minificados
    - CSS: arquivos minificados
-   - HTML e imagens: copiados
+   - HTML: minificado (incluindo o script do <head>)
+   - imagens: copiadas
    Uso: npm run build
    ========================================================= */
 
 import { build } from "esbuild";
-import { rm, mkdir, cp, readdir, stat } from "node:fs/promises";
+import { minify } from "html-minifier-terser";
+import { rm, mkdir, cp, readdir, stat, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const DESTINO = "dist";
@@ -63,17 +65,42 @@ await build({
 });
 
 
-/* 4. HTML e imagens: copiados como estão */
+/* 4. HTML: remove comentários e espaços e minifica o script do <head> */
 
-await cp("html", join(DESTINO, "html"), { recursive: true });
+await mkdir(join(DESTINO, "html"));
+
+for (const arquivo of await readdir("html")) {
+
+    if (!arquivo.endsWith(".html")) {
+        continue;
+    }
+
+    const original = await readFile(join("html", arquivo), "utf8");
+
+    const minificado = await minify(original, {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        minifyJS: true,
+        minifyCSS: true
+    });
+
+    await writeFile(join(DESTINO, "html", arquivo), minificado);
+
+}
+
+
+/* 5. Imagens: copiadas como estão */
+
 await cp("img", join(DESTINO, "img"), { recursive: true });
 
 
-/* 5. Relatório de tamanho (código-fonte x produção) */
+/* 6. Relatório de tamanho (código-fonte x produção) */
 
 const linhas = [
     ["JavaScript", "js", "js"],
-    ["CSS", "css", "css"]
+    ["CSS", "css", "css"],
+    ["HTML", "html", "html"]
 ];
 
 console.log("\nBuild concluída em dist/\n");

@@ -41,6 +41,7 @@ Foi desenvolvida com **HTML5, CSS3 e JavaScript puro (ES6 Modules)**, sem framew
 | JavaScript ES6+ | Módulos (`import`/`export`), template literals, eventos, `localStorage` |
 | [Chart.js 4.4.1](https://www.chartjs.org/) | Gráfico de barras, carregado via CDN [jsDelivr](https://www.jsdelivr.com/) com `import()` dinâmico |
 | [esbuild](https://esbuild.github.io/) | Build de produção: une e minifica o JavaScript e o CSS |
+| [html-minifier-terser](https://github.com/terser/html-minifier-terser) | Build de produção: minifica o HTML |
 | Node.js (`node --test`) | Execução dos testes automatizados, sem bibliotecas extras |
 | Git e GitHub | Versionamento com GitFlow e Conventional Commits |
 
@@ -60,7 +61,7 @@ cd <pasta-do-projeto>
 npm install
 ```
 
-O `npm install` instala apenas o **esbuild**, usado na build. A aplicação em si não tem dependências para instalar.
+O `npm install` instala apenas as ferramentas da build (**esbuild** e **html-minifier-terser**). A aplicação em si não tem dependências para instalar.
 
 ## Execução em desenvolvimento
 
@@ -82,10 +83,11 @@ npm run preview   # serve a pasta dist/ em http://localhost:8000/html/index.html
 A build:
 
 1. apaga a pasta `dist/` anterior;
-2. une todos os módulos JavaScript a partir de `js/main.js` em um único arquivo minificado;
-3. minifica os arquivos CSS;
-4. copia o HTML e as imagens;
-5. mostra um relatório de redução de tamanho.
+2. une todos os módulos JavaScript a partir de `js/main.js` em um único arquivo minificado (esbuild);
+3. minifica os arquivos CSS (esbuild);
+4. minifica o HTML, inclusive o script do `<head>` (html-minifier-terser);
+5. copia as imagens;
+6. mostra um relatório de redução de tamanho.
 
 Resultado atual:
 
@@ -93,6 +95,7 @@ Resultado atual:
 |---|---|---|---|
 | JavaScript | 50,9 KB | 26,4 KB | −48% |
 | CSS | 27,9 KB | 16,3 KB | −42% |
+| HTML | 4,8 KB | 2,7 KB | −43% |
 
 A pasta `dist/` é gerada automaticamente e, por isso, não é versionada (está no `.gitignore`).
 
