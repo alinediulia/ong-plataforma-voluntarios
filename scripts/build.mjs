@@ -56,7 +56,7 @@ await build({
 /* 3. CSS: minifica cada arquivo */
 
 await build({
-    entryPoints: ["css/style.css", "css/cadastros.css"],
+    entryPoints: ["css/style.css", "css/cadastros.css", "css/temas.css"],
     minify: true,
     outdir: join(DESTINO, "css"),
     logLevel: "warning"

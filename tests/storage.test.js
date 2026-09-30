@@ -52,3 +52,10 @@ test("rascunho é salvo, lido e apagado", () => {
     storage.limparRascunho();
     assert.equal(storage.lerRascunho(), null);
 });
+
+test("tema padrão é automático e a escolha é salva", () => {
+    assert.equal(storage.lerTema(), "auto");
+
+    storage.salvarTema("escuro");
+    assert.equal(storage.lerTema(), "escuro");
+});

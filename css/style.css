@@ -7,8 +7,8 @@
 
     /* Cores de destaque */
     --cor-destaque: #F9A825;
-    --cor-sucesso: #388E3C;
-    --cor-alerta: #EF6C00;
+    --cor-sucesso: #2E7D32;
+    --cor-alerta: #B45309;
     --cor-erro: #C62828;
 
     /* Tons neutros */
@@ -35,6 +35,16 @@
     /* Acessibilidade (contraste mínimo 3:1 — WCAG 1.4.11) */
     --cor-foco: #0D47A1;
     --cor-borda-campo: #767676;
+
+    /* Texto sobre fundos coloridos fortes (botões, ícones) */
+    --cor-texto-inverso: #FFFFFF;
+
+    /* Camada escura atrás do modal */
+    --cor-fundo-modal: rgba(33, 33, 33, 0.6);
+
+    /* Informa ao navegador o tema dos controles nativos
+       (calendário, select, barra de rolagem) */
+    color-scheme: light;
 
     /* Bordas e sombras */
     --raio-sm: 8px;
@@ -136,6 +146,10 @@ body {
     line-height: 1.5;
     color: var(--cor-texto);
     background-color: var(--cor-fundo);
+}
+
+a {
+    color: var(--cor-secundaria);
 }
 
 
@@ -283,7 +297,7 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    color: var(--cor-fundo);
+    color: var(--cor-texto-inverso);
     font-size: 0.875rem;
     font-weight: 700;
 }
@@ -393,7 +407,7 @@ body {
     height: 32px;
     border-radius: 50%;
     background-color: var(--toast-cor);
-    color: var(--cor-fundo);
+    color: var(--cor-texto-inverso);
     font-weight: 700;
 }
 
@@ -436,7 +450,7 @@ body {
     justify-content: center;
     padding: 20px;
 
-    background-color: rgba(33, 33, 33, 0.6);
+    background-color: var(--cor-fundo-modal);
 
     opacity: 0;
     visibility: hidden;
@@ -847,7 +861,7 @@ a.botao {
     z-index: 3000;
     padding: var(--espaco-1) var(--espaco-2);
     background-color: var(--cor-foco);
-    color: var(--cor-fundo);
+    color: var(--cor-texto-inverso);
     font-weight: 700;
     border-radius: var(--raio-sm);
     text-decoration: none;
@@ -880,4 +894,46 @@ a.botao {
 .instrucao-formulario {
     margin-bottom: var(--espaco-3);
     font-size: 0.875rem;
+}
+
+
+
+/* =========================================================
+   SELETOR DE TEMA (cabeçalho)
+   ========================================================= */
+
+.logo { order: 0; }
+.menu { order: 1; }
+.seletor-tema { order: 2; }
+.menu-botao { order: 3; }
+
+.seletor-tema {
+    display: flex;
+    align-items: center;
+    gap: var(--espaco-1);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.seletor-tema select {
+    padding: 6px 10px;
+    border: 2px solid var(--cor-borda-campo);
+    border-radius: var(--raio-sm);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font: inherit;
+    cursor: pointer;
+}
+
+.seletor-tema select:focus-visible {
+    outline: 3px solid var(--cor-foco);
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+
+    /* no celular: logo | tema | ☰ e o menu embaixo */
+    .seletor-tema { order: 1; }
+    .menu-botao { order: 2; }
+    .menu { order: 3; }
 }
