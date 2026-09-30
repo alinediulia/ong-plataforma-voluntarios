@@ -12,6 +12,7 @@ Foi desenvolvida com **HTML5, CSS3 e JavaScript puro (ES6 Modules)**, sem framew
 - [Instalação](#instalação)
 - [Execução em desenvolvimento](#execução-em-desenvolvimento)
 - [Build de produção](#build-de-produção)
+- [Imagens](#imagens)
 - [Testes](#testes)
 - [Estrutura de pastas](#estrutura-de-pastas)
 - [Arquitetura](#arquitetura)
@@ -42,6 +43,7 @@ Foi desenvolvida com **HTML5, CSS3 e JavaScript puro (ES6 Modules)**, sem framew
 | [Chart.js 4.4.1](https://www.chartjs.org/) | Gráfico de barras, carregado via CDN [jsDelivr](https://www.jsdelivr.com/) com `import()` dinâmico |
 | [esbuild](https://esbuild.github.io/) | Build de produção: une e minifica o JavaScript e o CSS |
 | [html-minifier-terser](https://github.com/terser/html-minifier-terser) | Build de produção: minifica o HTML |
+| [sharp](https://sharp.pixelplumbing.com/) | Otimização de imagens: redimensiona e gera WebP e JPEG |
 | Node.js (`node --test`) | Execução dos testes automatizados, sem bibliotecas extras |
 | Git e GitHub | Versionamento com GitFlow e Conventional Commits |
 
@@ -61,7 +63,7 @@ cd <pasta-do-projeto>
 npm install
 ```
 
-O `npm install` instala apenas as ferramentas da build (**esbuild** e **html-minifier-terser**). A aplicação em si não tem dependências para instalar.
+O `npm install` instala apenas as ferramentas da build (**esbuild**, **html-minifier-terser** e **sharp**). A aplicação em si não tem dependências para instalar.
 
 ## Execução em desenvolvimento
 
@@ -86,18 +88,50 @@ A build:
 2. une todos os módulos JavaScript a partir de `js/main.js` em um único arquivo minificado (esbuild);
 3. minifica os arquivos CSS (esbuild);
 4. minifica o HTML, inclusive o script do `<head>` (html-minifier-terser);
-5. copia as imagens;
+5. copia as imagens otimizadas (os originais não vão para produção);
 6. mostra um relatório de redução de tamanho.
 
 Resultado atual:
 
 | Tipo | Código-fonte | Produção | Redução |
 |---|---|---|---|
-| JavaScript | 50,9 KB | 26,4 KB | −48% |
+| JavaScript | 51,5 KB | 26,8 KB | −48% |
 | CSS | 27,9 KB | 16,3 KB | −42% |
-| HTML | 4,8 KB | 2,7 KB | −43% |
+| HTML | 4,9 KB | 2,8 KB | −43% |
+| Imagens | 2.026 KB | 163 KB (WebP) | −92% |
 
 A pasta `dist/` é gerada automaticamente e, por isso, não é versionada (está no `.gitignore`).
+
+## Imagens
+
+```bash
+npm run imagens   # gera img/*.webp e img/*.jpg a partir de img/originais/
+```
+
+| Formato | Uso |
+|---|---|
+| **WebP** | Formato principal: compressão bem maior que o JPEG, com a mesma qualidade visual |
+| **JPEG** otimizado (mozjpeg, progressivo) | Reserva para navegadores sem suporte a WebP |
+
+Cada foto é **redimensionada para o dobro da largura em que aparece** (ex.: o logo aparece com 120 px e é gerado com 240 px), ficando nítida em telas de alta densidade sem desperdiçar bytes. Nas páginas, o elemento `<picture>` oferece o WebP e deixa o JPEG como reserva:
+
+```html
+<picture>
+    <source srcset="../img/ong.webp" type="image/webp">
+    <img src="../img/ong.jpg" width="200" height="200" alt="...">
+</picture>
+```
+
+As imagens têm `width` e `height` (para o navegador reservar o espaço e o layout não "pular") e, nos cartões, `loading="lazy"` e `decoding="async"`.
+
+| Imagem | Original | WebP | Dimensões |
+|---|---|---|---|
+| logo | 649 KB (2560×2560) | 7 KB | 240×240 |
+| ong | 649 KB (2560×2560) | 12 KB | 400×400 |
+| projeto-educacao | 164 KB | 63 KB | 660×455 |
+| projeto-solidariedade | 394 KB | 43 KB | 720×480 |
+| projeto-voluntariado | 171 KB | 39 KB | 720×501 |
+| **Total** | **2.026 KB** | **163 KB (−92%)** | |
 
 ## Testes
 
@@ -123,7 +157,8 @@ Os testes usam o executor nativo do Node.js e ficam na pasta `tests/`. Eles cobr
 │   ├── style.css             # variáveis de design, layout e componentes
 │   ├── cadastros.css         # botões, formulário e estados de validação
 │   └── temas.css             # cores dos temas escuro e alto contraste
-├── img/                      # imagens dos projetos e logotipo
+├── img/                      # imagens otimizadas (WebP e JPEG), geradas por npm run imagens
+│   └── originais/            # fotos originais, sem compressão
 ├── js/
 │   ├── main.js               # ponto de entrada
 │   ├── router.js             # roteamento da SPA
@@ -135,7 +170,8 @@ Os testes usam o executor nativo do Node.js e ficam na pasta `tests/`. Eles cobr
 │   └── utils/                # funções puras (máscaras e escape de HTML)
 ├── tests/                    # testes automatizados
 ├── scripts/
-│   └── build.mjs             # script da build de produção
+│   ├── build.mjs             # script da build de produção
+│   └── otimizar-imagens.mjs  # conversão e compressão das imagens
 ├── CHANGELOG.md              # histórico de versões
 └── package.json              # scripts npm e dependência de build
 ```

@@ -14,7 +14,10 @@ export const inicio = {
         return `
             <section id="sobre" class="pagina">
                 <h1>Sobre a ONG</h1>
-                <img width="200" src="../img/ong.jpg" alt="Voluntários da ONG realizando uma ação social">
+                <picture>
+                    <source srcset="../img/ong.webp" type="image/webp">
+                    <img width="200" height="200" src="../img/ong.jpg" alt="Voluntários da ONG realizando uma ação social">
+                </picture>
                 <p>
                     Nossa ONG atua na promoção da inclusão social e na melhoria da
                     qualidade de vida da comunidade, desenvolvendo projetos e ações

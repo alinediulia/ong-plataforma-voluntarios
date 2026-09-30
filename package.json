@@ -7,6 +7,7 @@
   "scripts": {
     "start": "python3 -m http.server 8000",
     "test": "node --test",
+    "imagens": "node scripts/otimizar-imagens.mjs",
     "build": "node scripts/build.mjs",
     "preview": "python3 -m http.server 8000 --directory dist"
   },
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "esbuild": "^0.25.12",
-    "html-minifier-terser": "^7.2.0"
+    "html-minifier-terser": "^7.2.0",
+    "sharp": "^0.35.5"
   }
 }
