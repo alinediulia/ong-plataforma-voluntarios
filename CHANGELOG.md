@@ -3,6 +3,16 @@
 Todas as mudanças relevantes do projeto são registradas aqui.
 O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e o projeto usa [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.2.0] - 2026-09-30
+
+### Adicionado
+- Deploy automático no GitHub Pages com GitHub Actions (testes e build a cada push na `main`)
+- Script `npm run imagens`: imagens em WebP com JPEG de reserva, redimensionadas para o tamanho exibido
+- Minificação do HTML na build de produção
+
+### Alterado
+- Imagens passam de 2.026 KB para 163 KB (−92%); peso da tela inicial de 1.371 KB para 66 KB
+
 ## [1.1.0] - 2026-09-30
 
 ### Adicionado
