@@ -19,6 +19,7 @@ Foi desenvolvida com **HTML5, CSS3 e JavaScript puro (ES6 Modules)**, sem framew
 - [Dados salvos no navegador](#dados-salvos-no-navegador)
 - [Acessibilidade](#acessibilidade)
 - [Temas de cor](#temas-de-cor)
+- [Deploy](#deploy)
 - [Fluxo de trabalho](#fluxo-de-trabalho)
 - [Autoria](#autoria)
 
@@ -169,6 +170,8 @@ Os testes usam o executor nativo do Node.js e ficam na pasta `tests/`. Eles cobr
 │   ├── components/           # toast, modal, menu, cartões, lista e gráfico
 │   └── utils/                # funções puras (máscaras e escape de HTML)
 ├── tests/                    # testes automatizados
+├── .github/workflows/
+│   └── deploy.yml            # deploy automático no GitHub Pages
 ├── scripts/
 │   ├── build.mjs             # script da build de produção
 │   └── otimizar-imagens.mjs  # conversão e compressão das imagens
@@ -250,6 +253,23 @@ O seletor **Tema**, no cabeçalho, oferece quatro opções:
 | Alto contraste | 9,20:1 (acima do AAA, que exige 7:1) |
 
 O modo de cores forçadas do Windows (`forced-colors`) também é respeitado.
+
+## Deploy
+
+A aplicação é publicada no **GitHub Pages** por um fluxo do **GitHub Actions** (`.github/workflows/deploy.yml`).
+
+**Link público:** _(adicionar após a primeira publicação)_
+
+A cada push na branch `main` (ou seja, a cada release do GitFlow), o fluxo:
+
+1. instala as dependências com `npm ci`;
+2. roda os testes com `npm test` (se algum falhar, nada é publicado);
+3. gera a build com `npm run build`;
+4. publica a pasta `dist/`.
+
+A build cria um `index.html` na raiz, que redireciona para `html/index.html`, e um arquivo `.nojekyll`, para o GitHub Pages publicar os arquivos como estão.
+
+**Para ativar (uma única vez):** no repositório, abra **Settings → Pages** e, em **Source**, escolha **GitHub Actions**.
 
 ## Fluxo de trabalho
 

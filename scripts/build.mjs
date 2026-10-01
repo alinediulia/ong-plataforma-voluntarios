@@ -99,7 +99,27 @@ await cp("img", join(DESTINO, "img"), {
 });
 
 
-/* 6. Relatório de tamanho (código-fonte x produção) */
+/* 6. Página na raiz: o GitHub Pages abre o index.html da raiz,
+      mas a aplicação fica em html/index.html */
+
+await writeFile(join(DESTINO, "index.html"), `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="0; url=html/index.html">
+<title>ONG — Voluntariado e Projetos</title>
+</head>
+<body>
+<p><a href="html/index.html">Abrir a plataforma da ONG</a></p>
+</body>
+</html>
+`);
+
+/* .nojekyll: avisa o GitHub Pages para publicar os arquivos como estão */
+await writeFile(join(DESTINO, ".nojekyll"), "");
+
+
+/* 7. Relatório de tamanho (código-fonte x produção) */
 
 const linhas = [
     ["JavaScript", "js", "js"],
