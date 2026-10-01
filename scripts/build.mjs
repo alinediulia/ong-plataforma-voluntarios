@@ -3,12 +3,14 @@
    Gera a pasta dist/ com:
    - JS: todos os módulos unidos em um arquivo e minificados
    - CSS: arquivos minificados
-   - HTML e imagens: copiados
+   - HTML: minificado (incluindo o script do <head>)
+   - imagens: copia só as versões otimizadas (npm run imagens)
    Uso: npm run build
    ========================================================= */
 
 import { build } from "esbuild";
-import { rm, mkdir, cp, readdir, stat } from "node:fs/promises";
+import { minify } from "html-minifier-terser";
+import { rm, mkdir, cp, readdir, stat, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const DESTINO = "dist";
@@ -63,17 +65,67 @@ await build({
 });
 
 
-/* 4. HTML e imagens: copiados como estão */
+/* 4. HTML: remove comentários e espaços e minifica o script do <head> */
 
-await cp("html", join(DESTINO, "html"), { recursive: true });
-await cp("img", join(DESTINO, "img"), { recursive: true });
+await mkdir(join(DESTINO, "html"));
+
+for (const arquivo of await readdir("html")) {
+
+    if (!arquivo.endsWith(".html")) {
+        continue;
+    }
+
+    const original = await readFile(join("html", arquivo), "utf8");
+
+    const minificado = await minify(original, {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        minifyJS: true,
+        minifyCSS: true
+    });
+
+    await writeFile(join(DESTINO, "html", arquivo), minificado);
+
+}
 
 
-/* 5. Relatório de tamanho (código-fonte x produção) */
+/* 5. Imagens: copia as versões otimizadas (WebP e JPEG).
+      Os originais em img/originais/ não vão para produção. */
+
+await cp("img", join(DESTINO, "img"), {
+    recursive: true,
+    filter: (caminho) => !caminho.includes("originais")
+});
+
+
+/* 6. Página na raiz: o GitHub Pages abre o index.html da raiz,
+      mas a aplicação fica em html/index.html */
+
+await writeFile(join(DESTINO, "index.html"), `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="0; url=html/index.html">
+<title>ONG — Voluntariado e Projetos</title>
+</head>
+<body>
+<p><a href="html/index.html">Abrir a plataforma da ONG</a></p>
+</body>
+</html>
+`);
+
+/* .nojekyll: avisa o GitHub Pages para publicar os arquivos como estão */
+await writeFile(join(DESTINO, ".nojekyll"), "");
+
+
+/* 7. Relatório de tamanho (código-fonte x produção) */
 
 const linhas = [
     ["JavaScript", "js", "js"],
-    ["CSS", "css", "css"]
+    ["CSS", "css", "css"],
+    ["HTML", "html", "html"],
+    ["Imagens*", "img/originais", "img"]
 ];
 
 console.log("\nBuild concluída em dist/\n");
@@ -85,4 +137,5 @@ for (const [nome, origem, destino] of linhas) {
     console.log(`${nome.padEnd(11)} ${emKB(antes).padStart(9)} → ${emKB(depois).padStart(9)}  (-${reducao}%)`);
 }
 
+console.log("\n* WebP + JPEG somados; o navegador baixa só um dos dois (WebP).");
 console.log();

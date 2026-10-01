@@ -2,6 +2,8 @@
    DADOS: PROJETOS DA ONG
    Fonte de dados dos cartões. Para incluir um projeto novo,
    basta adicionar um objeto nesta lista — sem mexer no HTML.
+   A foto original vai em img/originais/ e deve ser registrada
+   em scripts/otimizar-imagens.mjs (npm run imagens).
    ========================================================= */
 
 export const listaProjetos = [
@@ -18,7 +20,7 @@ export const listaProjetos = [
         status: "urgente",
         categoria: "Arrecadação",
         descricao: "Realizamos campanhas de arrecadação de alimentos, roupas e outros itens para auxiliar famílias em situação de vulnerabilidade.",
-        imagem: "../img/projeto-solidariedade.jpeg",
+        imagem: "../img/projeto-solidariedade.jpg",
         textoAlternativo: "Doações organizadas para distribuição às famílias"
     },
     {

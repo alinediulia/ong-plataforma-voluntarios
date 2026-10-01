@@ -28,3 +28,14 @@ test("cardProjeto usa badge padrão para status desconhecido", () => {
 
     assert.ok(html.includes("badge-andamento"));
 });
+
+test("cardProjeto oferece WebP com JPEG de reserva e carregamento tardio", () => {
+    const html = cardProjeto({
+        titulo: "Projeto", status: "ativo", categoria: "", descricao: "",
+        imagem: "../img/foto.jpg", textoAlternativo: "Foto"
+    });
+
+    assert.ok(html.includes('srcset="../img/foto.webp" type="image/webp"'));
+    assert.ok(html.includes('src="../img/foto.jpg"'));
+    assert.ok(html.includes('loading="lazy"'));
+});

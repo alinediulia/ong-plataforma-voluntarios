@@ -20,11 +20,19 @@ export function cardProjeto(projeto) {
 
     const badge = badgesStatus[projeto.status] || badgesStatus.andamento;
 
+    /* "../img/foto.jpg" → "../img/foto.webp" (gerada por npm run imagens) */
+    const imagemWebp = projeto.imagem.replace(/\.(jpe?g|png)$/i, ".webp");
+
     return `
         <article class="card">
-            <img class="card-imagem"
-                src="${escaparHTML(projeto.imagem)}"
-                alt="${escaparHTML(projeto.textoAlternativo)}">
+            <picture>
+                <source srcset="${escaparHTML(imagemWebp)}" type="image/webp">
+                <img class="card-imagem"
+                    src="${escaparHTML(projeto.imagem)}"
+                    alt="${escaparHTML(projeto.textoAlternativo)}"
+                    width="720" height="480"
+                    loading="lazy" decoding="async">
+            </picture>
 
             <div class="card-corpo">
                 <div class="badges">
